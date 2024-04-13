@@ -2,14 +2,18 @@
 #include <SDL.h>
 #include <SDL_video.h>
 
+#pragma once
+
 class RenderLoop
 {
 public:
     bool init();
     void kill();
     bool load();
-    bool loop();
+    void loop();
     bool render();
+
+    bool quit = false;
 
 private:
     // Pointers to our window and surfaces

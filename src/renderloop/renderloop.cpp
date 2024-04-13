@@ -3,7 +3,7 @@
 #include <SDL_video.h>
 #include "renderloop.hpp"
 
-bool RenderLoop::loop()
+void RenderLoop::loop()
 {
     SDL_Event e;
 
@@ -12,7 +12,7 @@ bool RenderLoop::loop()
         switch (e.type)
         {
         case SDL_QUIT:
-            return false;
+            quit = true;
         case SDL_KEYDOWN:
             break;
         case SDL_KEYUP:
@@ -28,7 +28,6 @@ bool RenderLoop::loop()
     {
         std::cout << "Error rendering: " << std::endl;
     }
-    return true;
 }
 
 bool RenderLoop::render()

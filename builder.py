@@ -34,9 +34,9 @@ def main():
 
     if (choice == "1"):
         print("MacOS")
-        subprocess.run(["cmake", Debug, "-S", "./", "-B", "build"]) 
-        subprocess.run(["make", "-C", "build"])
-        subprocess.run(["make", "install", "-C", "build"])
+        subprocess.run(["cmake", Debug, "-S", "./", "-B", "out/build"]) 
+        subprocess.run(["make", "-C", "out/build"])
+        subprocess.run(["make", "install", "-C", "out/build"])
     elif (choice == "2"):
         print("Windows")
     elif (choice == "3"):
@@ -45,10 +45,10 @@ def main():
         print("Android")
     elif (choice == "5"):
         print("Web (WASM)")
-        subprocess.run(["emcmake", "cmake", Debug, "-S", "./", "-B", "build"])
+        subprocess.run(["emcmake", "cmake", Debug, "-S", "./", "-B", "out/build"])
         subprocess.run(["make", "-C", "build"])
-        subprocess.run(["make", "install", "-C", "build"])
-        subprocess.run(["emrun", "build/src/app.html", "--browser", pathToBrowser])
+        subprocess.run(["make", "install", "-C", "out/build"])
+        subprocess.run(["emrun", "out/build/src/app.html", "--browser", pathToBrowser])
     else:
         print("Invalid Choice")
 

@@ -3,7 +3,7 @@
 #include <SDL_video.h>
 #include "renderloop.hpp"
 
-void RenderLoop::loop()
+void Render::loop()
 {
     SDL_Event e;
 
@@ -30,7 +30,7 @@ void RenderLoop::loop()
     }
 }
 
-bool RenderLoop::render()
+bool Render::render()
 {
     // Randomly change the colour
     Uint8 red = rand() % 255;
@@ -45,7 +45,7 @@ bool RenderLoop::render()
     return true;
 }
 
-bool RenderLoop::init()
+bool Render::init()
 {
     // See last example for comments
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -72,12 +72,12 @@ bool RenderLoop::init()
     return true;
 }
 
-bool RenderLoop::load()
+bool Render::load()
 {
     return true;
 }
 
-void RenderLoop::kill()
+void Render::kill()
 {
     // Tidy up and quit
     SDL_DestroyRenderer(renderer);

@@ -7,7 +7,7 @@
 
 namespace RenderVariables
 {
-    RenderLoop render = RenderLoop();
+    Render render = Render();
 };
 
 static void mainloop(void)

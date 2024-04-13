@@ -4,7 +4,7 @@
 
 #pragma once
 
-class RenderLoop
+class Render
 {
 public:
     bool init();

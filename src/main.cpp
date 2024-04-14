@@ -1,44 +1,45 @@
-#include <stdint.h>
-#include <SDL.h>
-#include "renderloop/renderloop.hpp"
+#include <stdio.h>
+#include <iostream>
+#include <SDL2/SDL.h>
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
 #endif
+#include "renderloop.hpp"
 
-namespace RenderVariables
+namespace GlobalVariables
 {
     Render render = Render();
 };
 
-static void mainloop(void)
+void mainloop(void)
 {
-    RenderVariables::render.loop();
-
-    if (RenderVariables::render.quit)
+    if (!GlobalVariables::render.render())
     {
-#ifdef __EMSCRIPTEN__
-        emscripten_cancel_main_loop(); /* this should "kill" the app. */
-#endif
+        std::cout << "Error rendering: " << std::endl;
     }
 
-    SDL_Delay(10);
+#ifdef EMSCRIPTEN
+    if (GlobalVariables::render.quit)
+    {
+        emscripten_cancel_main_loop();
+    }
+#endif
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    if (RenderVariables::render.init())
-        return 1;
+    GlobalVariables::render.init();
 
 #ifdef EMSCRIPTEN
-    emscripten_set_main_loop(mainloop, 0, 1);
+    emscripten_set_main_loop(mainloop, 60, 1);
 #else
-    while (!RenderVariables::render.quit)
+    while (GlobalVariables::render.quit)
     {
         mainloop();
     }
 #endif
 
-    RenderVariables::render.kill();
+    GlobalVariables::render.kill();
 
     return 0;
 }

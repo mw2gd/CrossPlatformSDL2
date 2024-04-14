@@ -9,7 +9,6 @@ class Render
 public:
     bool init();
     void kill();
-    bool load();
     void loop();
     bool render();
 

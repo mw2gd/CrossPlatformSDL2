@@ -1,7 +1,21 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_video.h>
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#endif
 #include "renderloop.hpp"
+
+#ifdef EMSCRIPTEN
+EM_JS(int, canvas_get_width, (), {
+    return canvas.width;
+});
+
+EM_JS(int, canvas_get_height, (), {
+    return canvas.height;
+});
+
+#endif
 
 bool Render::render()
 {
@@ -11,6 +25,15 @@ bool Render::render()
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
     SDL_RenderDrawLine(renderer, 0, 0, 640, 320);
     SDL_RenderPresent(renderer);
+
+#ifdef EMSCRIPTEN
+    SDL_SetWindowSize(window, canvas_get_width(), canvas_get_height());
+    std::cout << canvas_get_width() << std::endl;
+
+#else
+    SDL_Delay(10);
+
+#endif
 
     return true;
 }

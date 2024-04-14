@@ -14,6 +14,10 @@ optMessage = """Choose Build Option:
    4) Android
    5) Web (WASM)
 """
+outDirs = {
+    1 : "out/macos/",
+    5: "out/web/"
+}
 pathToBrowser = "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
 Release = "-DCMAKE_BUILD_TYPE=Release"
 Debug = "-DCMAKE_BUILD_TYPE=Debug"
@@ -34,9 +38,9 @@ def main():
 
     if (choice == "1"):
         print("MacOS")
-        subprocess.run(["cmake", Debug, "-S", "./", "-B", "out/build"]) 
-        subprocess.run(["make", "-C", "out/build"])
-        subprocess.run(["make", "install", "-C", "out/build"])
+        subprocess.run(["cmake", Debug, "-S", "./", "-B", outDirs[1] + "/build"]) 
+        subprocess.run(["make", "-C", outDirs[1] + "build"])
+        subprocess.run(["make", "install", "-C", outDirs[1] + "build"])
     elif (choice == "2"):
         print("Windows")
     elif (choice == "3"):
@@ -45,10 +49,10 @@ def main():
         print("Android")
     elif (choice == "5"):
         print("Web (WASM)")
-        subprocess.run(["emcmake", "cmake", Debug, "-S", "./", "-B", "out/build"])
+        subprocess.run(["emcmake", "cmake", Debug, "-S", "./", "-B", outDirs[5] + "build"])
         subprocess.run(["make", "-C", "build"])
-        subprocess.run(["make", "install", "-C", "out/build"])
-        subprocess.run(["emrun", "out/build/src/app.html", "--browser", pathToBrowser])
+        subprocess.run(["make", "install", "-C", outDirs[5] + "build"])
+        subprocess.run(["emrun", outDirs[5] + "build/src/app.html", "--browser", pathToBrowser])
     else:
         print("Invalid Choice")
 
